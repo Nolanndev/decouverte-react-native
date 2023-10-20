@@ -12,10 +12,10 @@ import todoData from "../Helpers/todoData";
 import TodoItem from "./TodoItem";
 
 export default function TodoList() {
-    const [filters, setFilters] = useState("all");
+    const [filter, setfilter] = useState("all");
     const [todos, setTodos] = useState(todoData);
-    const [viewTodos, setViewTodos] = useState([...todoData].sort((a,b) => a.done - b.done));
-	const [count, setCount] = useState(
+    const [viewTodos, setViewTodos] = useState([...todoData].sort((item1, item2) => item1.done - item2.done));
+    const [count, setCount] = useState(
         todos.filter((item) => item.done).length
     );
     const [newTodoText, setNewTodoText] = useState("");
@@ -28,31 +28,21 @@ export default function TodoList() {
                 done: item.id == id ? !item.done : item.done,
             };
         });
-        switch (filters) {
-            case "done":
-                viewDone();
-                break;
-            case "progress":
-                viewInProgress();
-                break;
-            default:
-                viewAll();
-                break;
-        }
-
         setTodos(newTodos);
+        updateView(newTodos, filter);
         setCount(newTodos.filter((item) => item.done).length);
     };
 
     const deleteTodo = (id) => {
         const newTodos = todos.filter((item) => item.id != id);
-        setTodos(newTodos);
+        setTodos(newTodos); // modifier mes données
+        updateView(newTodos, filter);
         setCount(newTodos.filter((item) => item.done).length);
     };
 
     const addNewTodo = () => {
         if (newTodoText == "") return;
-        setTodos([
+        const newTodos = [
             ...todos,
             {
                 id: todos.length
@@ -61,17 +51,19 @@ export default function TodoList() {
                 content: newTodoText,
                 done: false,
             },
-        ]);
+        ];
+        setTodos(newTodos);
+        updateView(newTodos, filter);
         setNewTodoText("");
     };
 
     const checkAll = () => {
-        const newTodos = viewTodos.map((item) => {
+        const newTodos = todos.map((item) => {
             return { id: item.id, content: item.content, done: true };
         });
-        setTodos(newTodos);
         setCount(newTodos.length);
-        setViewTodos(newTodos);
+        setTodos(newTodos);
+        updateView(newTodos, filter);
     };
 
     const checkNone = () => {
@@ -80,28 +72,49 @@ export default function TodoList() {
         });
         setCount(0);
         setTodos(newTodos);
-        setViewTodos(newTodos);
+        updateView(newTodos, filter);
     };
 
-    const viewAll = () => {
-        setFilters("all");
-        setViewTodos([...todos].sort((item1, item2) => item1.done - item2.done));
-    };
-    const viewDone = () => {
-        setFilters("done");
-        setViewTodos(todos.filter((todo) => todo.done));
-    };
-    const viewInProgress = () => {
-        setFilters("progress");
-        setViewTodos(todos.filter((todo) => !todo.done));
+    const updateView = (newTodos, val = "all") => {
+        switch (val) {
+            case "done":
+                setfilter(val);
+                setViewTodos(newTodos.filter((todo) => todo.done));
+                break;
+            case "progress":
+                console.log(val);
+                console.table(newTodos);
+                setfilter(val);
+                setViewTodos(newTodos.filter((todo) => !todo.done));
+                break;
+            default:
+                setfilter(val);
+                setViewTodos(newTodos.sort((item1, item2) => item1.done - item2.done ));
+                break;
+        }
     };
 
     return (
         <View style={{ margin: 10 }}>
             <View style={styles.filterView}>
-                <Button onPress={viewAll} title="view all" />
-                <Button onPress={viewDone} title="view done" />
-                <Button onPress={viewInProgress} title="view in progress" />
+                <Button
+                    onPress={() => {
+                        updateView([...todos], "all");
+                    }}
+                    title="view all"
+                />
+                <Button
+                    onPress={() => {
+                        updateView([...todos], "done");
+                    }}
+                    title="view done"
+                />
+                <Button
+                    onPress={() => {
+                        updateView([...todos], "progress");
+                    }}
+                    title="view in progress"
+                />
             </View>
             <View style={styles.checkButtons}>
                 <Button onPress={checkAll} title="check all" />
