@@ -6,8 +6,9 @@ import {
     Text,
     TextInput,
     View,
+    TouchableOpacity
 } from "react-native";
-
+import { Ionicons } from '@expo/vector-icons';
 import todoData from "../Helpers/todoData";
 import TodoItem from "./TodoItem";
 
@@ -146,6 +147,9 @@ export default function TodoList() {
                     />
                 )}
             />
+            <TouchableOpacity onPress={() => console.log("ajouter une todo")} style={styles.addTodoButton}>
+                <Ionicons name="add" size={24} color="black" />
+            </TouchableOpacity>
         </View>
     );
 }
@@ -170,5 +174,11 @@ const styles = StyleSheet.create({
     filterView: {
         flexDirection: "row",
         gap: 10,
+    },
+    addTodoButton :{
+        borderWidth: 1,
+        borderRadius: 50,
+        borderColor: "red",
+        padding: 15,
     },
 });

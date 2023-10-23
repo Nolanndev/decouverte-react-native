@@ -42,6 +42,7 @@ export default function TodoItem(props) {
                     style={{ height: 24, width: 24 }}
                 />
             </TouchableOpacity>
+            
         </View>
     );
 }
