@@ -11,6 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import todoData from "../Helpers/todoData";
 import TodoItem from "./TodoItem";
+import { Bar } from "react-native-progress";
 
 export default function TodoList() {
     const [filter, setfilter] = useState("all");
@@ -20,6 +21,7 @@ export default function TodoList() {
         todos.filter((item) => item.done).length
     );
     const [newTodoText, setNewTodoText] = useState("");
+    const [progress, setProgress] = useState((todoData.filter(item => item.done).length) / todoData.length);
 
     const updateItem = (id) => {
         const newTodos = todos.map((item) => {
@@ -31,6 +33,7 @@ export default function TodoList() {
         });
         setTodos(newTodos);
         updateView(newTodos, filter);
+        setProgress(newTodos.length);
         setCount(newTodos.filter((item) => item.done).length);
     };
 
@@ -38,6 +41,7 @@ export default function TodoList() {
         const newTodos = todos.filter((item) => item.id != id);
         setTodos(newTodos); // modifier mes données
         updateView(newTodos, filter);
+        setProgress(newTodos.length);
         setCount(newTodos.filter((item) => item.done).length);
     };
 
@@ -55,6 +59,7 @@ export default function TodoList() {
         ];
         setTodos(newTodos);
         updateView(newTodos, filter);
+        setProgress(newTodos.length);
         setNewTodoText("");
     };
 
@@ -64,6 +69,7 @@ export default function TodoList() {
         });
         setCount(newTodos.length);
         setTodos(newTodos);
+        setProgress(newTodos.length);
         updateView(newTodos, filter);
     };
 
@@ -73,6 +79,7 @@ export default function TodoList() {
         });
         setCount(0);
         setTodos(newTodos);
+        setProgress(newTodos.length);
         updateView(newTodos, filter);
     };
 
@@ -150,6 +157,7 @@ export default function TodoList() {
             <TouchableOpacity onPress={() => console.log("ajouter une todo")} style={styles.addTodoButton}>
                 <Ionicons name="add" size={24} color="black" />
             </TouchableOpacity>
+            <Bar progress={progress} width={200} />
         </View>
     );
 }

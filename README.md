@@ -1,4 +1,10 @@
 
+## Questions pour  le professeur
+
+- organisation des composants ??
+- gestion des 
+
+
 ## Structuration finale du code
 
 +-- App.js
@@ -22,6 +28,7 @@
   - consumer
 - navigation
 - JWT -> JSON Web Token
+
 
 ## Dépendences
 

@@ -9,18 +9,9 @@ export default function Home() {
   return (
     <>
       <UsernameContext.Consumer>
-        {([username, setUsername]) => {
-			let msg = "Vous n'êtes pas connecté";
-			if (username != undefined) {
-				msg = "Vous êtes connecté en tant que " + username;
-			}
-          return (
-            <>
-              <Text>Welcome !</Text>
-              <Text>{msg}</Text>
-            </>
-          );
-        }}
+        {([username, setUsername]) => (
+			<Text>Vous êtes connectés en tant que {username}</Text>
+		)}
       </UsernameContext.Consumer>
     </>
   );

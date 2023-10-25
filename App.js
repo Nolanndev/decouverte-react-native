@@ -3,8 +3,8 @@ import { TokenContext, UsernameContext } from './Context/Context';
 import Navigation from "./Navigation/Navigation";
 
 export default function App () {
-  const [token, setToken] = useState(null)
-  const [username, setUsername] = useState("doofy")
+  const [token, setToken] = useState()
+  const [username, setUsername] = useState()
 
   console.log('token', token)
   return (
