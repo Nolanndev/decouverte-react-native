@@ -14,7 +14,7 @@ import { TokenContext, UsernameContext } from "../Context/Context";
 function TabBarNotLogged({ navigation }) {
     return (
         <View style={styles.tabBar}>
-            <View style={styles.tabBarIcon}>
+            <View style={StyleSheet.compose(styles.tabBarIcon, styles.tabBarIconFirstElement)}>
                 <Pressable onPress={() => navigation.navigate("SignIn")}>
                     <FontAwesome name="sign-in" size={24} color="black" />
                 </Pressable>
@@ -77,15 +77,18 @@ export default function Navigation () {
 const styles = StyleSheet.create({
 	tabBar: {
 		flexDirection: "row",
-		justifyContent: "space-evenly",
-		backgroundColor: "red",
 		padding: 1,
 		gap: 2,
+    height: 40,
 	},
-    tabBarIcon: {
-        backgroundColor: "white",
-        flex: 0.2,
-		justifyContent: "center",
-		textAlign: "center",
-    },
+  tabBarIcon: {
+      backgroundColor: "white",
+      flex: 1,
+      justifyContent: "center",
+      textAlign: "center",
+  },
+  tabBarIconFirstElement: {
+      borderRightWidth: 1,
+      borderColor: '#d1d0cd',
+  },
 });

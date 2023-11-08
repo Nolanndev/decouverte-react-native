@@ -1,41 +1,59 @@
-import React, { useState, useContext } from "react";
-import { TextInput } from "react-native";
-import { Button, View, Text } from "react-native-web";
-import { signIn } from "../components/SignIn";
-import { TokenContext } from "../Context/Context";
+import React from "react";
+import { TextInput, StyleSheet, Pressable } from "react-native";
+import { View, Text } from "react-native";
 
 export default function SignInScreen() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [token, setToken] = useContext(TokenContext)
-
-    const connecter = () => {
-        signIn(username, password).then(t => {console.log("token", t);setToken(t)});
-    }
 
     return (
-        <View>
-            <View>
-                <Text>username</Text>
+        <View style={styles.container}>
+            <View style={styles.inputContainer}>
                 <TextInput
-                    onChangeText={setUsername}
-                    value={username}
-                    placeholder="username"
-                    autoComplete="username"
+                    onChangeText=""
+                    value=""
+                    placeholder="Username"
+                    inputMode="text"
+                    style={styles.input}
                 />
             </View>
-            <View>
-            <Text>password</Text>
+            <View style={styles.inputContainer}>
                 <TextInput
-                    onChangeText={setPassword}
-                    value={password}
-                    placeholder="password"
-                    autoComplete="password"
+                    onChangeText=""
+                    value=""
+                    placeholder="Password"
+                    inputMode="text"
+                    style={styles.input}
                 />
             </View>
-            <Button title="Se connecter" onPress={connecter}/>
+            <Pressable onPress="" style={styles.button}>
+                <Text>Se connecter</Text>
+            </Pressable>
         </View>
     );
 }
 
-  
+const styles = StyleSheet.create({
+    container: {
+        padding: 5,
+        flexDirection: "column",
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 10,
+        flex: 1,
+    },
+    inputContainer: {
+        backgroundColor: "#f5f0df",
+    },
+    input: {
+        borderWidth: 1,
+        borderRadius: 5,
+        padding: 5,
+        paddingLeft: 10,
+    },
+    button : {
+        borderWidth: 1,
+        textAlign: 'center',
+        padding: 5,
+        marginTop: 15,
+        borderRadius: 5,
+    }
+})

@@ -6,6 +6,8 @@ const SIGN_IN = `
     }
 `;
 
+const USERNAME = null;
+
 export function signIn(username, password) {
 	return fetch(API_URL, { 
 		method: "POST", 
@@ -31,4 +33,20 @@ export function signIn(username, password) {
     .catch((error) => {
       	throw error;
     });
+}
+
+export function getUsername(token) {
+	return fetch(API_URL, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			"authorization": token,
+		},
+		body: JSON.stringify({
+			query: USERNAME,
+			variables: {
+				authorization: token,
+			}
+		})
+	})
 }
