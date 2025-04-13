@@ -1,7 +1,5 @@
 import API_URL from "./apiUrl.js"
 
-import fetch from "node-fetch"
-
 const CREATE_TODOLIST = `
 mutation createTodoLists($input: [TodoListCreateInput!]!) {
   createTodoLists(input: $input) {

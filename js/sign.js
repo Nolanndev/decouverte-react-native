@@ -1,5 +1,3 @@
-import fetch from "node-fetch"
-
 import API_URL from "./apiUrl.js"
 
 const SIGN_IN = `

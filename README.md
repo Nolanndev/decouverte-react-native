@@ -65,3 +65,19 @@
 - `@react-navigation/bottom-tabs` : menu de navigation en bas de l'application
 - `@react-native-screens` : nécéssaire pour `@react-navigation/native-stack`
 - `@react-navigation/native-stack` : stacks de navigation
+
+
+"dependencies": {
+    "@react-navigation/bottom-tabs": "^6.5.10",
+    "@react-navigation/native": "^6.1.9",
+    "@react-navigation/native-stack": "^6.9.15",
+    "expo": "~43.0.2",
+    "expo-status-bar": "~1.1.0",
+    "node-fetch": "^3.3.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-native": "0.64.3",
+    "react-native-progress": "^5.0.0",
+    "react-native-web": "0.17.1",
+    "worker-thread": "^1.1.0"
+  }

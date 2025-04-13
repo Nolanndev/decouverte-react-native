@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { TokenContext, UsernameContext } from './Context/Context';
+import {View} from "react-native";
+import { TokenContext, UsernameContext } from "./Context/Context";
 import Navigation from "./Navigation/Navigation";
+import FlashMessage from "react-native-flash-message";
 
-export default function App () {
-  const [token, setToken] = useState()
-  const [username, setUsername] = useState()
+export default function App() {
+  const [token, setToken] = useState();
+  const [username, setUsername] = useState();
 
-  console.log('token', token)
   return (
-    <UsernameContext.Provider value={[username, setUsername]}>
-      <TokenContext.Provider value={[token, setToken]}>
-        <Navigation />
-      </TokenContext.Provider>
-    </UsernameContext.Provider>
-  )
+      <UsernameContext.Provider value={[username, setUsername]}>
+        <TokenContext.Provider value={[token, setToken]}>
+          <Navigation />
+			<FlashMessage position="top" />
+        </TokenContext.Provider>
+      </UsernameContext.Provider>
+  );
 }

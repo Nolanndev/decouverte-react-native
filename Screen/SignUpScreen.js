@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { TextInput, StyleSheet, Pressable } from "react-native";
 import { View, Text } from "react-native-web";
+import {signUp} from "../js/sign";
+import { TokenContext, UsernameContext } from "../Context/Context";
 
 export default function SignInScreen() {
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [usernameCtx, setUsernameCtx] = useContext(UsernameContext)
+    const [token, setToken] = useContext(TokenContext)
+
+    const connection = () => {
+        console.log("inscription");
+        signUp(username, password)
+            .then(t => {
+                setToken(t)
+                setUsernameCtx(username)
+            })
+            .catch(e => {
+                console.error(e)
+            })
+    }
 
     return (
         <View style={styles.container}>
             <View style={styles.inputContainer}>
                 <TextInput
-                    onChangeText=""
-                    value=""
+                    onChangeText={setUsername}
+                    value={username}
                     placeholder="Username"
                     inputMode="text"
                     style={styles.input}
@@ -17,14 +36,15 @@ export default function SignInScreen() {
             </View>
             <View style={styles.inputContainer}>
                 <TextInput
-                    onChangeText=""
-                    value=""
+                    onChangeText={setPassword}
+                    value={password}
                     placeholder="Password"
                     inputMode="text"
                     style={styles.input}
+                    onSubmitEditing={connection}
                 />
             </View>
-            <Pressable onPress="" style={styles.button}>
+            <Pressable onPress={connection} style={styles.button}>
                 <Text>S'inscrire</Text>
             </Pressable>
         </View>

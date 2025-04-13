@@ -9,19 +9,18 @@ import {
     TouchableOpacity
 } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import todoData from "../Helpers/todoData";
 import TodoItem from "./TodoItem";
 import { Bar } from "react-native-progress";
 
-export default function TodoList() {
+export default function TodoList(props) {
     const [filter, setfilter] = useState("all");
-    const [todos, setTodos] = useState(todoData);
-    const [viewTodos, setViewTodos] = useState([...todoData].sort((item1, item2) => item1.done - item2.done));
+    const [todos, setTodos] = useState(props.data);
+    const [viewTodos, setViewTodos] = useState([...props.data].sort((item1, item2) => item1.done - item2.done));
     const [count, setCount] = useState(
         todos.filter((item) => item.done).length
     );
     const [newTodoText, setNewTodoText] = useState("");
-    const [progress, setProgress] = useState((todoData.filter(item => item.done).length) / todoData.length);
+    const [progress, setProgress] = useState((props.data.filter(item => item.done).length) / props.data.length);
 
     const updateItem = (id) => {
         const newTodos = todos.map((item) => {
@@ -90,7 +89,6 @@ export default function TodoList() {
                 setViewTodos(newTodos.filter((todo) => todo.done));
                 break;
             case "progress":
-                console.log(val);
                 console.table(newTodos);
                 setfilter(val);
                 setViewTodos(newTodos.filter((todo) => !todo.done));
@@ -154,12 +152,15 @@ export default function TodoList() {
                     />
                 )}
             />
-            <TouchableOpacity onPress={() => console.log("ajouter une todo")} style={styles.addTodoButton}>
+            {/* <TouchableOpacity onPress={() => console.log("ajouter une todo")} style={styles.addTodoButton}>
                 <Ionicons name="add" size={24} color="black" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <Bar progress={progress} width={200} />
         </View>
-    );
+    );<Image
+    source={require("../assets/trash-can-outline.png")}
+    style={{ height: 24, width: 24 }}
+/>
 }
 
 const styles = StyleSheet.create({
